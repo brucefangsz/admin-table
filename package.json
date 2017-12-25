@@ -34,6 +34,7 @@
     "webpack-hot-middleware": "^2.18.0"
   },
   "dependencies": {
+    "bee-table": "^1.0.8",
     "classnames": "^2.2.5",
     "tinper-bee": "1.2.1"
   }
