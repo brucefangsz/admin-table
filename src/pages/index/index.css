@@ -1,0 +1,11 @@
+.Test{
+  color : "green";
+  background: url("../../assets/images/jay.jpg") no-repeat center center;
+}
+.uf{
+  font-size: 16px;
+}
+.u-breadcrumb{
+  margin: 0;
+  margin-bottom: 20px;
+}
