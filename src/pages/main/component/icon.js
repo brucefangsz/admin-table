@@ -1,4 +1,4 @@
-import React, { Component } from 'React';
+import React, { Component } from 'react';
 import { Icon } from 'tinper-bee';
 export default class Logo extends Component {
     constructor() {
