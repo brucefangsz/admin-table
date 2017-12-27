@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import classnames from 'classnames';
-import { Table, Pagination } from "tinper-bee";
+import { Table, Pagination, SearchPanel, FormControl, Row, Col, Label, FormGroup, Radio } from "tinper-bee";
 // 内部组件
 import EditModul from "./component/edit";
 import Logo from "./component/icon";
@@ -227,6 +227,37 @@ export default class Main extends Component {
     render() {
         let sh = { height: '100%' },
             { toggle, isAddData, isSearch, tableData, isEdit } = this.state;
+            let searchContent=()=>{
+            return (
+                <div className="demo">
+                    <div>
+                        <label className="demo-label">状态:</label>
+                        <Radio.RadioGroup
+                            name="state"
+                            selectedValue={this.state.state}
+                            onChange={this.stateChange.bind(this)}>
+                            <Radio.RadioButton value="all">全部</Radio.RadioButton>
+                            <Radio.RadioButton value="initial">初始化</Radio.RadioButton>
+                            <Radio.RadioButton value="todo">待处理</Radio.RadioButton>
+                            <Radio.RadioButton value="doing">处理中</Radio.RadioButton>
+                            <Radio.RadioButton  value="done">已完成</Radio.RadioButton>
+                            <Radio.RadioButton  value="closed">已完成</Radio.RadioButton>
+                        </Radio.RadioGroup>
+                    </div>
+
+                    <div className="margin-top-10">
+                        <span className="demo-item">
+                            <label className="demo-label">名称:</label>
+                            <FormControl placeholder="请输入名称"/>
+                        </span>
+                        <span className="demo-item">
+                            <label className="demo-label">编码:</label>
+                            <FormControl placeholder="请输入编码"/>
+                        </span>
+                    </div>
+                </div>
+            )
+        }
         return (
             <div>
                 {this.state.isAddData ? '' : <EditModul
