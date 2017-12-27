@@ -7,24 +7,14 @@ import Logo from "./component/icon";
 import AddModul from "./component/addModul";
 import SearchModul from "./component/searchModul";
 import EditHandle from "./component/editHandle";
-import {Link} from 'mirrorx';
+import { Link } from 'mirrorx';
 const tableColumns = [
+
     {
-        dataIndex: 'description',
-        key: 'description',
-        title: '备注'
-    },
-    {
-        dataIndex: 'status',
-        key: 'status',
-        title: '状态'
-    },
-    // {
-    //     dataIndex: 'ipuquotaionid',
-    //     key: 'ipuquotaionid',
-    //     title: '主键'
-    // },
-    {
+        dataIndex: 'ecbillcode',
+        key: 'ecbillcode',
+        title: '订单编号'
+    }, {
         dataIndex: 'corp_account',
         key: 'corp_account',
         title: '银行账号'
@@ -49,11 +39,7 @@ const tableColumns = [
         key: 'currency_code',
         title: '币种编码'
     },
-    {
-        dataIndex: 'ecbillcode',
-        key: 'ecbillcode',
-        title: '订单编号'
-    },
+
     {
         dataIndex: 'contact',
         key: 'contact',
@@ -63,13 +49,22 @@ const tableColumns = [
         dataIndex: 'phone',
         key: 'phone',
         title: '联系电话'
+    },
+    {
+        dataIndex: 'status',
+        key: 'status',
+        title: '状态'
+    }, {
+        dataIndex: 'description',
+        key: 'description',
+        title: '备注'
     }
 ];
 const columnsChild = [
-    { title: "备注", dataIndex: "productdesc", key: "productdesc" },
     { title: "产品", dataIndex: "productname", key: "productname" },
     { title: "订单金额", dataIndex: "purchaseamount", key: "purchaseamount" },
-    { title: "单位", dataIndex: "unit", key: "unit" }
+    { title: "单位", dataIndex: "unit", key: "unit" },
+    { title: "备注", dataIndex: "productdesc", key: "productdesc" }
 ];
 
 export default class Main extends Component {
@@ -138,7 +133,7 @@ export default class Main extends Component {
     }
     // 点击行
     rowclick = (record, index, e) => {
-        let {tableData} = this.state, child = tableData[index].children_data;
+        let { tableData } = this.state, child = tableData[index].children_data;
         this.setState({ curIndex: index, children_data: child });
     };
     // 点击增加按钮
@@ -155,21 +150,21 @@ export default class Main extends Component {
     }
     // 添加数据
     addButton = (obj) => {
-        let {tableData, curKey} = this.state;
+        let { tableData, curKey } = this.state;
         console.log(curKey += 1);
         let addData = {
             'description': obj.mName,
             'status': '启用',
             'subject': '甄子丹',
             'ipuquotaionid': '主键',
-            'corp_account': '8888 888 8888',
-            'processor': '房帅中',
-            'processtime': '2012-01-09',
+            'corp_account': obj.mAccount,
+            'processor': obj.mInputUser,
+            'processtime': obj.mCurDate,
             'currencyid': '真',
             'currency_code': '001',
-            'ecbillcode': '000021',
+            'ecbillcode': obj.mNum,
             'contact': obj.mUser,
-            'phone': '18701517173',
+            'phone': obj.mPhonNum,
             'key': curKey,
             'children_data': obj.childData
         }
@@ -180,7 +175,7 @@ export default class Main extends Component {
     }
     // 删除数据
     deleteData = () => {
-        let {curIndex, tableData, children_data} = this.state;
+        let { curIndex, tableData, children_data } = this.state;
         if (curIndex === '') {
             alert('请选择删除')
         } else {
@@ -205,7 +200,7 @@ export default class Main extends Component {
     // 冻结数据
     frozen = () => {
         console.log('冻结数据');
-        let {curIndex, tableData, children_data} = this.state;
+        let { curIndex, tableData, children_data } = this.state;
         if (curIndex === '') {
             alert('请选择数据')
         } else {
@@ -218,7 +213,7 @@ export default class Main extends Component {
 
     }
     cancelFrozen = () => {
-        let {curIndex, tableData, children_data} = this.state;
+        let { curIndex, tableData, children_data } = this.state;
         if (curIndex === '') {
             alert('请选择数据')
         } else {
@@ -231,15 +226,15 @@ export default class Main extends Component {
     }
     render() {
         let sh = { height: '100%' },
-            {toggle, isAddData, isSearch, tableData, isEdit} = this.state;
+            { toggle, isAddData, isSearch, tableData, isEdit } = this.state;
         return (
             <div>
-                <EditModul
+                {this.state.isAddData ? '' : <EditModul
                     addData={this.addData}
                     deleteData={this.deleteData}
                     handleEdit={this.handleEdit}
                     frozen={this.frozen}
-                    cancelFrozen={this.cancelFrozen} />
+                    cancelFrozen={this.cancelFrozen} />}
                 <EditHandle
                     isEdit={isEdit}
                     cancelEdit={this.cancelEdit} />
@@ -259,7 +254,6 @@ export default class Main extends Component {
                             title={currentData => <div>标题: 我是主表</div>}
                         />
                         <Table
-                            style={{ marginTop: 40 }}
                             columns={columnsChild}
                             data={this.state.children_data}
                             title={currentData => <div>标题: 我是子表</div>}

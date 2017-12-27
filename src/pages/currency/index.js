@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'mirrorx';
+import axios from 'axios';
 import { Row, Col, Panel, Table, Select, Button, Modal, Form, FormControl, FormGroup, InputGroup, Icon, Input, Popconfirm, Animate, ControlLabel } from 'tinper-bee';
 import './index.css';
 const Children = [];
@@ -54,15 +55,7 @@ class AddList extends Component {
     }
     // 初始化数据
     initData = () => {
-        // axios({
-        //     method: 'get',
-        //     // http://10.11.65.50:9999/appdemo/train_currtype/list
-        //     // https://api.douban.com/v2/book/search?q=javascript&count=1
-        //     url: 'http://api.douban.com/v2/book/search?q=javascript&count=1    ',
-        // }).then(function (res) {
-        //     console.log(res);
-        // });
-
+        
     }
     onCellChange = (index, key) => {
         return value => {
@@ -187,7 +180,7 @@ class AddList extends Component {
         var data = this.state, tac = { 'text-align': 'right' }, mt = { 'margin-top': '10px' }, lmt = { 'margin-top': '18px' }
         return (
             <div>
-                
+
                 <Modal
                     show={this.state.showModal}
                     onHide={this.close} >
@@ -216,7 +209,7 @@ class AddList extends Component {
                     colors="primary"
                     className="a"
                     onClick={this.handleAdd}
-                    style={{'margin':'15px'}}
+                    style={{ 'margin': '15px' }}
                 >
                     添加
                 </Button>
